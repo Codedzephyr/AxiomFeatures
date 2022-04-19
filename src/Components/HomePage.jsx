@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Box } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
-import { Stack, HStack, Vstack } from "@chakra-ui/react";
-import { Button, ButtonGroup } from "@chakra-ui/react";
+import { Stack } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { ChakraProvider } from "@chakra-ui/provider";
 
 const HomePage = () => {
@@ -12,14 +12,21 @@ const HomePage = () => {
   };
   const [containers, setContainersAppear] = useState(containersfordata);
 
-  const showInfo = (event, key) => {
-    event.preventDefault();
-    setContainersAppear({ ...containers, ...{ [key]: true } });
+  const showInfo = (e, key) => {
+    e.preventDefault();
+    setContainersAppear((prevState) => ({
+      ...prevState,
+      [key]: true,
+    }));
+    console.log("fire");
   };
 
-  const hideInfo = (event, key) => {
-    event.preventDefault();
-    setContainersAppear({ ...containers, ...{ [key]: false } });
+  const hideInfo = (e, key) => {
+    e.preventDefault();
+    setContainersAppear((prevState) => ({
+      ...prevState,
+      [key]: true,
+    }));
     console.log("very");
   };
 
@@ -37,7 +44,7 @@ const HomePage = () => {
             textAlign="center"
             color="white"
             onClick={(e) => {
-              hideInfo(e, "postContainer");
+              showInfo(e, "postContainer");
             }}
           >
             get
@@ -115,7 +122,7 @@ const HomePage = () => {
             cancel
           </Button>
         </Stack>
-        {containers["getContainer"] && <Box h="500px" bgColor="pink"></Box>}
+        {containers["postContainer"] && <Box h="500px" bgColor="pink"></Box>}
       </Box>
     </ChakraProvider>
   );
