@@ -1,33 +1,150 @@
 import React, { useState } from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, transform } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import { Stack } from "@chakra-ui/react";
+import axios from "axios";
 import { Button } from "@chakra-ui/react";
 import { ChakraProvider } from "@chakra-ui/provider";
 
 const HomePage = () => {
   let containersfordata = {
-    getContainer: true,
+    getContainer: false,
     postContainer: false,
+    putOrPatchContainer: false,
+    deleteContainer: false,
+    simRequestContainer: false,
+    customHeaderContainer: false,
+    transformContainer: false,
+    errorHandlingContainer: false,
+    cancelContainer: false,
   };
+
+  const baseURL = "https://jsonplaceholder.typicode.com/todos?_limit=15";
+
   const [containers, setContainersAppear] = useState(containersfordata);
+  const [post, setPost] = React.useState(null);
 
-  const showInfo = (e, key) => {
+  React.useEffect(() => {
+    axios.get(baseURL).then((response) => {
+      setPost(response.data);
+    });
+  });
+
+  const showInfoForGet = (e, key) => {
     e.preventDefault();
+    const allFalse = Object.assign(
+      ...Object.keys(containers).map((key) => ({ [key]: false }))
+    );
+
+    setContainersAppear(allFalse);
     setContainersAppear((prevState) => ({
       ...prevState,
-      [key]: true,
+      [key]: !containers[key],
     }));
-    console.log("fire");
   };
 
-  const hideInfo = (e, key) => {
+  const showInfoForPost = (e, key) => {
     e.preventDefault();
+    const allFalse = Object.assign(
+      ...Object.keys(containers).map((key) => ({ [key]: false }))
+    );
+
+    setContainersAppear(allFalse);
     setContainersAppear((prevState) => ({
       ...prevState,
-      [key]: true,
+      [key]: !containers[key],
     }));
-    console.log("very");
+  };
+
+  const showInfoForPutOrPatch = (e, key) => {
+    e.preventDefault();
+    const allFalse = Object.assign(
+      ...Object.keys(containers).map((key) => ({ [key]: false }))
+    );
+
+    setContainersAppear(allFalse);
+    setContainersAppear((prevState) => ({
+      ...prevState,
+      [key]: !containers[key],
+    }));
+  };
+
+  const showInfoForDelete = (e, key) => {
+    e.preventDefault();
+    const allFalse = Object.assign(
+      ...Object.keys(containers).map((key) => ({ [key]: false }))
+    );
+
+    setContainersAppear(allFalse);
+    setContainersAppear((prevState) => ({
+      ...prevState,
+      [key]: !containers[key],
+    }));
+  };
+
+  const showInfoForSimRequest = (e, key) => {
+    e.preventDefault();
+    const allFalse = Object.assign(
+      ...Object.keys(containers).map((key) => ({ [key]: false }))
+    );
+
+    setContainersAppear(allFalse);
+    setContainersAppear((prevState) => ({
+      ...prevState,
+      [key]: !containers[key],
+    }));
+  };
+
+  const showInfoForCustomHeader = (e, key) => {
+    e.preventDefault();
+    const allFalse = Object.assign(
+      ...Object.keys(containers).map((key) => ({ [key]: false }))
+    );
+
+    setContainersAppear(allFalse);
+    setContainersAppear((prevState) => ({
+      ...prevState,
+      [key]: !containers[key],
+    }));
+  };
+
+  const showInfoForTransform = (e, key) => {
+    e.preventDefault();
+    const allFalse = Object.assign(
+      ...Object.keys(containers).map((key) => ({ [key]: false }))
+    );
+
+    setContainersAppear(allFalse);
+    setContainersAppear((prevState) => ({
+      ...prevState,
+      [key]: !containers[key],
+    }));
+  };
+
+  const showInfoForErrorHandling = (e, key) => {
+    e.preventDefault();
+    const allFalse = Object.assign(
+      ...Object.keys(containers).map((key) => ({ [key]: false }))
+    );
+
+    setContainersAppear(allFalse);
+    setContainersAppear((prevState) => ({
+      ...prevState,
+      [key]: !containers[key],
+    }));
+  };
+
+  const showInfoForCancel = (e, key) => {
+    e.preventDefault();
+    const allFalse = Object.assign(
+      ...Object.keys(containers).map((key) => ({ [key]: false }))
+    );
+
+    setContainersAppear(allFalse);
+    setContainersAppear((prevState) => ({
+      ...prevState,
+      [key]: !containers[key],
+    }));
   };
 
   return (
@@ -44,7 +161,7 @@ const HomePage = () => {
             textAlign="center"
             color="white"
             onClick={(e) => {
-              showInfo(e, "postContainer");
+              showInfoForGet(e, "getContainer");
             }}
           >
             get
@@ -55,6 +172,9 @@ const HomePage = () => {
             textTransform="uppercase"
             textAlign="center"
             color="white"
+            onClick={(e) => {
+              showInfoForPost(e, "postContainer");
+            }}
           >
             post
           </Button>
@@ -64,6 +184,9 @@ const HomePage = () => {
             textTransform="uppercase"
             textAlign="center"
             color="white"
+            onClick={(e) => {
+              showInfoForPutOrPatch(e, "putOrPatchContainer");
+            }}
           >
             put/patch
           </Button>
@@ -73,6 +196,9 @@ const HomePage = () => {
             textTransform="uppercase"
             textAlign="center"
             color="white"
+            onClick={(e) => {
+              showInfoForDelete(e, "deleteContainer");
+            }}
           >
             delete
           </Button>
@@ -82,6 +208,9 @@ const HomePage = () => {
             textTransform="uppercase"
             textAlign="center"
             color="white"
+            onClick={(e) => {
+              showInfoForSimRequest(e, "simRequestContainer");
+            }}
           >
             sim request
           </Button>
@@ -91,6 +220,9 @@ const HomePage = () => {
             textTransform="uppercase"
             textAlign="center"
             color="white"
+            onClick={(e) => {
+              showInfoForCustomHeader(e, "customHeaderContainer");
+            }}
           >
             custom header
           </Button>
@@ -100,6 +232,9 @@ const HomePage = () => {
             textTransform="uppercase"
             textAlign="center"
             color="white"
+            onClick={(e) => {
+              showInfoForTransform(e, "transformContainer");
+            }}
           >
             transform
           </Button>
@@ -109,6 +244,9 @@ const HomePage = () => {
             textTransform="uppercase"
             textAlign="center"
             color="white"
+            onClick={(e) => {
+              showInfoForErrorHandling(e, "errorHandlingContainer");
+            }}
           >
             error handling
           </Button>
@@ -118,11 +256,45 @@ const HomePage = () => {
             textTransform="uppercase"
             textAlign="center"
             color="white"
+            onClick={(e) => {
+              showInfoForCancel(e, "cancelContainer");
+            }}
           >
             cancel
           </Button>
         </Stack>
-        {containers["postContainer"] && <Box h="500px" bgColor="pink"></Box>}
+        {containers["getContainer"] && (
+          <Box h="500px" bgColor="pink">
+            {post &&
+              post.map((postData) => {
+                return (
+                  <Box key={postData.id}>
+                    <Text>{postData.title}</Text>
+                  </Box>
+                );
+              })}
+          </Box>
+        )}
+        {containers["postContainer"] && <Box h="500px" bgColor="blue"></Box>}
+        {containers["putOrPatchContainer"] && (
+          <Box h="500px" bgColor="green"></Box>
+        )}
+        {containers["deleteContainer"] && <Box h="500px" bgColor="black"></Box>}
+        {containers["simRequestContainer"] && (
+          <Box h="500px" bgColor="orange"></Box>
+        )}
+        {containers["customHeaderContainer"] && (
+          <Box h="500px" bgColor="brown"></Box>
+        )}
+        {containers["transformContainer"] && (
+          <Box h="500px" bgColor="pink"></Box>
+        )}
+        {containers["errorHandlingContainer"] && (
+          <Box h="500px" bgColor="#ffd700"></Box>
+        )}
+        {containers["cancelContainer"] && (
+          <Box h="500px" bgColor="tomato"></Box>
+        )}
       </Box>
     </ChakraProvider>
   );
